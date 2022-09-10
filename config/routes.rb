@@ -5,4 +5,30 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  resources :rotums do
+    resources :travels do
+
+    end
+  end
+
+  resources :vehicles do
+
+  end
+
+  resources :days do
+  end
+
+  resources :users do
+
+  end
+  resources :travels do
+    resources :patients do
+
+    end
+  end
+
+  devise_scope :user do
+    post "sign_up", to: "registrations#create"
+    get "new_sign_up", to: "registrations#new"
+  end
 end

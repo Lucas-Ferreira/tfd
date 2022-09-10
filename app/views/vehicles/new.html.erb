@@ -1,0 +1,92 @@
+<%= render "shared/navbar2" %>
+<div class="container py-5">
+  <div class="row">
+    <div class="col-12 col-md-6 offset-lg-3">
+      <div class="d-flex justify-content-center bg-white rounded p-5 shadow">
+      <%= form_with model: @vehicle, class:"row g-1 w-10", local: false do |form| %>
+        <%= form.label :modelo %>
+        <%= form.text_field :modelo, class:"form-control form-control-sm col-auto" %>
+        <div><%= form.label :ano %></div>
+        <%= form.text_field :ano, class:"form-control form-control-sm col-auto" %>
+        <div><%= form.label :placa %></div>
+        <%= form.text_field :placa, class:"form-control form-control-sm col-auto" %>
+        <div><%= form.label :capacidade %></div>
+        <%= form.text_field :capacidade, class:"form-control form-control-sm col-auto" %>
+        <div><%= form.label :status %></div>
+        <%= form.select :status,["Liberado", "Em Manutencão", "Defeito"], class:"form-control form-control-sm col-auto" %>
+        <div><%= form.label :montadora %></div>
+        <%= form.select :montadora,["Pegeout", "Marcopolo", "Fiat", "GM", "Citroen", "Volkswagen"], class:"form-control mb-3" %>
+        <div><%= form.submit "Adicionar", class: "btn btn-primary mt-2 text-center" %></div>
+      <% end %>
+      </div>
+    </div>
+
+
+ <!-- Init First Table -->
+ <div class="container">
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <div class="main-card mb-3 card">
+        <div class="card-header">Usuários Ativos
+          <div class="btn-actions-pane-right">
+            <div role="group" class="btn-group-sm btn-group">
+              <button class="active btn btn-focus">Last Week</button>
+              <button class="btn btn-focus">All Month</button>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table
+            class="align-middle mb-0 table table-borderless table-striped table-hover">
+            <thead>
+              <tr>
+                <th class="text-center">Id</th>
+                <th>Modelo</th>
+                <th class="text-center">Placa</th>
+                <th class="text-center">Capacidade</th>
+                <th class="text-center">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+             <% @vehicles.each do |v| %>
+              <tr>
+                <td class="text-center text-mvted"><%= v.id %></td>
+                <td>
+                  <div class="widget-content p-0">
+                    <div class="widget-content-wrapper">
+                      <div class="widget-content-left mr-3">
+                        <div class="widget-content-left">
+                          <img width="40" class="rounded-circle" src="assets/images/avatars/4.jpg" alt="">
+                        </div>
+                      </div>
+                      <div class="widget-content-left flex2">
+                        <div class="widget-heading"><%= v.modelo %></div>
+                        <div class="widget-subheading opacity-7"><%= v.status %></div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td class="text-center"><%= v.placa %></td>
+                <td class="text-center">
+                  <div class="badge badge-warning"><%= v.capacidade %></div>
+                </td>
+                <td class="text-center">
+                  <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm"><%= v.status %></button>
+                </td>
+                 <td class="text-center">
+                 <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
+                 <%= link_to "", vehicle_path(v), data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" }, class: "pe-7s-trash btn-icon-wrapper" %></button>
+          <button class="btn-wide btn btn-success">Edit</button>
+                 </td>
+              </tr>
+              <% end %>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  </div>
+  <!-- Finaly First Table -->

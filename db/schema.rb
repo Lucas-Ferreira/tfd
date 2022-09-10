@@ -10,9 +10,71 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_25_153656) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_31_123830) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "rua"
+    t.string "bairro"
+    t.string "numero"
+    t.string "cep"
+    t.string "city"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_addresses_on_user_id"
+  end
+
+  create_table "days", force: :cascade do |t|
+    t.string "name"
+    t.bigint "rotum_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rotum_id"], name: "index_days_on_rotum_id"
+  end
+
+  create_table "patients", force: :cascade do |t|
+    t.string "name"
+    t.string "cel"
+    t.string "cpf"
+    t.string "city"
+    t.string "acompanhantes"
+    t.string "destino"
+    t.bigint "travel_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["travel_id"], name: "index_patients_on_travel_id"
+  end
+
+  create_table "rota", force: :cascade do |t|
+    t.string "origem"
+    t.string "destino"
+    t.string "especialidade"
+    t.string "capacidade"
+    t.string "hr_partida"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rotum_vehicles", force: :cascade do |t|
+    t.bigint "rotum_id", null: false
+    t.bigint "vehicle_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rotum_id"], name: "index_rotum_vehicles_on_rotum_id"
+    t.index ["vehicle_id"], name: "index_rotum_vehicles_on_vehicle_id"
+  end
+
+  create_table "travels", force: :cascade do |t|
+    t.string "status"
+    t.bigint "rotum_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["rotum_id"], name: "index_travels_on_rotum_id"
+    t.index ["user_id"], name: "index_travels_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -22,8 +84,27 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_25_153656) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "role"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "vehicles", force: :cascade do |t|
+    t.string "modelo"
+    t.string "placa"
+    t.string "capacidade"
+    t.string "ano"
+    t.string "montadora"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "addresses", "users"
+  add_foreign_key "days", "rota"
+  add_foreign_key "patients", "travels"
+  add_foreign_key "rotum_vehicles", "rota"
+  add_foreign_key "rotum_vehicles", "vehicles"
+  add_foreign_key "travels", "rota"
+  add_foreign_key "travels", "users"
 end
