@@ -7,13 +7,22 @@ class TravelsController < ApplicationController
   def new
   end
 
+  def show
+    @patients = @travel.patients
+    @patient = Patient.new
+  end
+
   def create
     @travel = Travel.new(travel_params)
     @rotum = Rotum.find(params[:rotum_id])
     @travel.rotum = @rotum
+    @travel.status = params[:travel][:status]
+    @vehicle = Vehicle.find(params[:travel][:vehicle])
     if @travel.save!
       #redirect_to travel_path(@travel)
+      TravelVehicle.create(travel:@travel, vehicle:@vehicle)
       flash[:alert] = "Viagem Criada com sucesso"
+      redirect_to rotum_path(@rotum)
     else
       flash[:alert] = "Erro"
     end
@@ -22,7 +31,7 @@ class TravelsController < ApplicationController
   private
 
   def travel_params
-    params.require(:travel).permit(:status, :rotum_id)
+    params.permit(:status, :rotum_id, :vehicle)
   end
 
   def set_travel

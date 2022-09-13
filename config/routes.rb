@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resources :users do
 
   end
+  
   resources :travels do
     resources :patients do
 
@@ -30,5 +31,6 @@ Rails.application.routes.draw do
   devise_scope :user do
     post "sign_up", to: "registrations#create"
     get "new_sign_up", to: "registrations#new"
+    #delete "user_delete", to: "registrations#destroy"
   end
 end

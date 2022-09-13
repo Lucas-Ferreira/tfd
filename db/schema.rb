@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_31_123830) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_12_142030) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -66,6 +66,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_31_123830) do
     t.index ["vehicle_id"], name: "index_rotum_vehicles_on_vehicle_id"
   end
 
+  create_table "travel_vehicles", force: :cascade do |t|
+    t.bigint "travel_id", null: false
+    t.bigint "vehicle_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["travel_id"], name: "index_travel_vehicles_on_travel_id"
+    t.index ["vehicle_id"], name: "index_travel_vehicles_on_vehicle_id"
+  end
+
   create_table "travels", force: :cascade do |t|
     t.string "status"
     t.bigint "rotum_id", null: false
@@ -105,6 +114,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_31_123830) do
   add_foreign_key "patients", "travels"
   add_foreign_key "rotum_vehicles", "rota"
   add_foreign_key "rotum_vehicles", "vehicles"
+  add_foreign_key "travel_vehicles", "travels"
+  add_foreign_key "travel_vehicles", "vehicles"
   add_foreign_key "travels", "rota"
   add_foreign_key "travels", "users"
 end

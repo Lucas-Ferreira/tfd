@@ -18,7 +18,7 @@ class RotumsController < ApplicationController
   def create
     @rotum = Rotum.new(rotum_params)
     if @rotum.save!
-      redirect_to root_path, notice: "Criado com sucesso"
+      redirect_to rotum_path(@rotum), notice: "Criado com sucesso"
     else
       render :new
     end
