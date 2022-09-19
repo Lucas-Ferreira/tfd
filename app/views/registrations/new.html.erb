@@ -12,7 +12,7 @@
           <div><%= form.label :password_confirmation %></div>
           <%= form.text_field :password_confirmation, class:"form-control col-auto" %>
           <div><%= form.label :role %></div>
-          <%= form.select :role,["true","false"], class:"form-control col-auto" %>
+          <%= form.select :role,["Motorista","Admin/Prefeitura"], class:"form-control col-auto" %>
           <div><%= form.submit "Salvar", class: "btn btn-primary mt-2 text-center" %></div>
         <% end %>
       </div>

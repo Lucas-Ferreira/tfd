@@ -17,6 +17,15 @@
         <div><%= form.submit "Adicionar", class: "btn btn-primary mt-2 text-center" %></div>
       <% end %>
       </div>
+
+      <%#= simple_form_for :rotum, url: '/rotums', validate: true do |f| %>
+          <%#= f.input :origem, label: 'Origem' %>
+          <%#= f.input :destino, label: 'Destino' %>
+          <%#= f.input :especialidade, label: 'Especialidade' %>
+          <%#= f.input :capacidade, label: 'Capacidade' %>
+          <%#= f.input :hr_partida, label: 'Horário de partida' %>
+          <%#= f.submit "Criar",  class: "btn btn-primary" %>
+      <%# end %>
       <div><h3><%#= @rotums.origem %></h3></div>
       <div><%#= link_to "Show", rotum_path(@rotums.id)  %></div>
     </div>

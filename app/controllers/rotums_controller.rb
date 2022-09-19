@@ -4,15 +4,15 @@ class RotumsController < ApplicationController
     @rotums = Rotum.all
   end
 
-  def new
-    @rotum = Rotum.new
-    @rotums = Rotum.last
-  end
-
   def show
     @rotum_run = @rotum.travels.where.not(status:"Finalizado")
     @rotum_history = @rotum.travels.where(status:"Finalizado")
     @travel = Travel.new
+  end
+
+  def new
+    @rotum = Rotum.new
+    @rotums = Rotum.last
   end
 
   def create

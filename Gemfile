@@ -47,6 +47,11 @@ gem "bootsnap", require: false
 #gem "sass-rails"
 gem 'sass-rails', '>= 6'
 
+#
+
+gem 'turbolinks_render'
+
+
 gem 'erb-formatter'
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"

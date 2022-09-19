@@ -16,7 +16,7 @@ class VehiclesController < ApplicationController
 
   def create
     @vehicle = Vehicle.new(vehicle_params)
-    if @vehicle.save!
+    if @vehicle.save
       redirect_to new_vehicle_path, notice: "Criado com sucesso"
     else
       render :new
